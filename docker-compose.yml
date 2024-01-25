@@ -1,13 +1,15 @@
+version: '3.8'
+
 services:
   vprodb:
-    build: 
+    build:
       context: ./Docker-files/db
     image: subhojeet992012/vprofiledb
     container_name: vprodb
     ports:
       - 3306:3306
     volumes:
-      -vprodbdata:/var/lib/mysql
+      - vprodbdata:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=vproddbpass
 
@@ -23,26 +25,25 @@ services:
       - RABBITMQ_DEFAULT_PASS=guest
     ports:
       - 15672:15672
-  
-  vproaapp:
-      build: 
-        context: ./Docker-files/app
-      image: subhojeet992012/vprofileapp
-      container_name: vproapp
-      ports:
-        - 8080:8080
-      volumes:
-        -vproappdata:/usr/local/tomcat/webapps
+
+  vproapp:
+    build:
+      context: ./Docker-files/app
+    image: subhojeet992012/vprofileapp
+    container_name: vproapp
+    ports:
+      - 8080:8080
+    volumes:
+      - vproappdata:/usr/local/tomcat/webapps
 
   vproweb:
-    build: 
+    build:
       context: ./Docker-files/web
     image: subhojeet992012/vprofileweb
     container_name: vproweb
     ports:
       - 80:80
-  
+
 volumes:
   vproappdata: {}
   vprodbdata: {}
-    
